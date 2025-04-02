@@ -1,10 +1,10 @@
-const { schema, model } = require("mongoose");
+const { Schema, model } = require("mongoose");
 
-const userSchema = new schema({
+const userSchema = new Schema({
   firstName: String,
   lastName: String,
   emailId: String,
-  age: Number,
+  password: String,
 });
 
 const User = model("User", userSchema);
