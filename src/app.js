@@ -16,6 +16,16 @@ app.post("/signUp", async (req, res) => {
   }
 });
 
+app.get("/user", async (req, res) => {
+  const userEmail = req.body.password;
+  try {
+    const user = await User.find({ password: userEmail });
+    res.send(user);
+  } catch (err) {
+    res.send("error occured");
+  }
+});
+
 connectDB()
   .then(() => {
     console.log("db connected shriharivansh");
