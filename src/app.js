@@ -26,6 +26,26 @@ app.get("/user", async (req, res) => {
   }
 });
 
+app.get("/feed", async (req, res) => {
+  try {
+    const user = await User.find({});
+    res.send(user);
+  } catch (err) {
+    console.error("no user sorry");
+  }
+});
+
+app.get("/oneUser", async (req, res) => {
+  const userPassword = req.body.password;
+  try {
+    // it returns oldest document
+    const user = await User.findOne({ password: userPassword });
+    res.send(user);
+  } catch (err) {
+    res.status(400).send("sorry no user found");
+  }
+});
+
 connectDB()
   .then(() => {
     console.log("db connected shriharivansh");
