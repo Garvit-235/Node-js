@@ -46,6 +46,29 @@ app.get("/oneUser", async (req, res) => {
   }
 });
 
+app.patch("/user", async (req, res) => {
+  const userId = req.body.userId;
+  const data = req.body;
+  try {
+    const user = await User.findByIdAndUpdate(userId, data, {
+      returnDocument: "after",
+    });
+    res.send("user deleted shriharivansh" + user);
+  } catch (err) {
+    res.send(400).send("sorry try again");
+  }
+});
+
+app.delete("/user", async (req, res) => {
+  const userId = req.body.userId;
+  try {
+    const user = await User.findByIdAndDelete(userId);
+    res.send("user deleted sucssfully");
+  } catch (err) {
+    res.send("errorrr");
+  }
+});
+
 connectDB()
   .then(() => {
     console.log("db connected shriharivansh");
