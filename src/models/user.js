@@ -1,11 +1,41 @@
 const { Schema, model } = require("mongoose");
 
-const userSchema = new Schema({
-  firstName: String,
-  lastName: String,
-  emailId: String,
-  password: String,
-});
+const userSchema = new Schema(
+  {
+    firstName: {
+      type: String,
+      required: true,
+    },
+    lastName: {
+      type: String,
+    },
+    gender: {
+      type: String,
+      lowercase: true,
+      validate(value) {
+        if (!["male", "female", "other"].includes(value)) {
+          throw new Error("gender not valid");
+        }
+      },
+    },
+    emailId: {
+      type: String,
+      required: true,
+      lowercase: true,
+    },
+    password: {
+      type: String,
+      required: true,
+      minLength: 8,
+      maxLength: 16,
+    },
+    photoUrl: {
+      type: String,
+      default: "kjsnfkjsndkjf",
+    },
+  },
+  { timestamps: true }
+);
 
 const User = model("User", userSchema);
 

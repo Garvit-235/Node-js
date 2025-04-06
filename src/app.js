@@ -12,7 +12,7 @@ app.post("/signUp", async (req, res) => {
     await user.save();
     res.send("Sucessfull");
   } catch (err) {
-    res.status(400).send("Failed some error ");
+    res.status(400).send(err.message);
   }
 });
 
@@ -52,10 +52,11 @@ app.patch("/user", async (req, res) => {
   try {
     const user = await User.findByIdAndUpdate(userId, data, {
       returnDocument: "after",
+      runValidators: true,
     });
     res.send("user deleted shriharivansh" + user);
   } catch (err) {
-    res.send(400).send("sorry try again");
+    res.status(400).send(err);
   }
 });
 
