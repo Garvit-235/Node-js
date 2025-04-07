@@ -1,5 +1,5 @@
 const { Schema, model } = require("mongoose");
-
+const validator = require("validator");
 const userSchema = new Schema(
   {
     firstName: {
@@ -20,14 +20,23 @@ const userSchema = new Schema(
     },
     emailId: {
       type: String,
+      validate(value) {
+        if (!validator.isEmail(value)) {
+          throw new Error("EmailId is not Valid");
+        }
+      },
       required: true,
       lowercase: true,
     },
     password: {
       type: String,
+      validate(value) {
+        if (!validator.isStrongPassword(value)) {
+          throw new Error("Enter a strong Password");
+        }
+      },
       required: true,
       minLength: 8,
-      maxLength: 16,
     },
     photoUrl: {
       type: String,
