@@ -4,6 +4,7 @@ const User = require("./models/user");
 const app = express();
 const port = 3000;
 const bcrypt = require("bcrypt");
+
 const validateSignUpData = require("./utils/validation");
 app.use(express.json());
 
@@ -78,6 +79,21 @@ app.delete("/user", async (req, res) => {
     res.send("user deleted sucssfully");
   } catch (err) {
     res.send("errorrr");
+  }
+});
+
+app.post("/login", async (req, res) => {
+  try {
+    const { emailId, password } = req.body;
+    const user = await User.findOne({ emailId: emailId });
+    const isUserValid = await bcrypt.compare(password, user.password);
+    if (isUserValid) {
+      res.send("logged in ");
+    } else {
+      throw new Error("user doesnt exist");
+    }
+  } catch (err) {
+    res.status(400).send("login failed : " + err);
   }
 });
 
