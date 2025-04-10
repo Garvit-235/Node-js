@@ -53,9 +53,8 @@ userSchema.methods.getJWT = function () {
   const token = jwt.sign({ _id: this._id }, "shriharivansh");
   return token;
 };
-
 userSchema.methods.validatePassword = async function (inputPassword) {
-  const userPassword = this.password;
+  const userPassword = await this.password;
   const isPasswordValid = await bcrypt.compare(inputPassword, userPassword);
   return isPasswordValid;
 };

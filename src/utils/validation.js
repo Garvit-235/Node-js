@@ -6,10 +6,9 @@ const validateSignUpData = (req) => {
     throw new Error("enter a valid name");
   } else if (!validator.isEmail(emailId)) {
     throw new Error("email not valid");
+  } else if (!validator.isStrongPassword(password)) {
+    throw new Error("password not valid");
   }
-  //  else if (!validator.isStrongPassword(password)) {
-  //     throw new Error("password not valid");
-  //   }
 };
 
 module.exports = validateSignUpData;
