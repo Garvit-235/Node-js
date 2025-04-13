@@ -6,12 +6,14 @@ const port = 3000;
 const cookieParser = require("cookie-parser");
 const userAuth = require("./middleware/auth");
 const authRouter = require("./router/authRoute");
+const profileRouter = require("./router/profileRouter");
 
 // ---middle-wares---
 app.use(express.json());
 app.use(cookieParser());
 // --- routers ---
 app.use("/", authRouter);
+app.use("/", profileRouter);
 
 app.get("/user", async (req, res) => {
   const userEmail = req.body.password;
@@ -69,22 +71,6 @@ app.delete("/user", async (req, res) => {
 app.get("/profile", userAuth, async (req, res) => {
   res.send("profile : " + req.user.lastName);
 });
-// app.post("/login", async (req, res) => {
-//   try {
-//     const { emailId, password } = req.body;
-//     const user = await User.findOne({ emailId: emailId });
-//     const isUserValid = await user.validatePassword(password);
-//     if (isUserValid) {
-//       const token = user.getJWT();
-//       res.cookie("token", token);
-//       res.send("logged in ");
-//     } else {
-//       throw new Error("user doesnt exist");
-//     }
-//   } catch (err) {
-//     res.status(400).send("login failed : " + err);
-//   }
-// });
 
 connectDB()
   .then(() => {

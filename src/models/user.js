@@ -42,7 +42,8 @@ const userSchema = new Schema(
     },
     photoUrl: {
       type: String,
-      default: "kjsnfkjsndkjf",
+      default:
+        "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.vectorstock.com%2Froyalty-free-vector%2Favatar-photo-default-user-icon-picture-face-vector-48139643&psig=AOvVaw0BQi5habSThfE_Z0D-YdFo&ust=1744548094723000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCLDbkaPC0owDFQAAAAAdAAAAABAJ",
     },
   },
   { timestamps: true }
